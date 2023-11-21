@@ -13,15 +13,14 @@ export class DiagramTwoComponent implements AfterViewInit {
   @ViewChild('diagramContainer') private diagramContainer!: ElementRef;
 
   ngAfterViewInit(): void {
-    cytoscape({
+    const cy = cytoscape({
       container: this.diagramContainer.nativeElement,
       elements: [
-        { data: { id: 'solarPanel1', label: 'Solar Panel 1', type: 'Solar Panel', image: 'assets/images/solarpanel.png' } },
+        { data: { id: 'solarPanel1', label: 'Solar Panel 1', type: 'Solar Panel', image: 'assets/images/solarpanel.png', tooltip: 'sample tooltip' }, grabbable: false },
         { data: { id: 'solarPanel2', label: 'Solar Panel 2', type: 'Solar Panel', image: 'assets/images/solarpanel.png' } },
         { data: { id: 'solarPanel3', label: 'Solar Panel 3', type: 'Solar Panel', image: 'assets/images/solarpanel.png' } },
         { data: { id: 'inverter1', label: 'Inverter 1', type: 'Inverter', image: 'assets/images/inverter.png' } },
         { data: { id: 'transformer1', label: 'Transformer 1', type: 'Transformer', image: 'assets/images/transformer.png' } },
-        { data: { id: 'connection1', source: 'solarPanel1', target: 'inverter1' } },
         { data: { id: 'connection2', source: 'solarPanel2', target: 'inverter1' } },
         { data: { id: 'connection3', source: 'solarPanel3', target: 'inverter1' } },
         { data: { id: 'connection4', source: 'inverter1', target: 'transformer1' } },
@@ -61,5 +60,18 @@ export class DiagramTwoComponent implements AfterViewInit {
         }
       ]
     });
+
+    cy.on('mouseover', 'node, edge', (event) => {
+      const element = event.target;
+      if (element.isNode() || element.isEdge()) {
+        const tooltip = element.data('tooltip');
+        console.log(tooltip)
+        // Show tooltip content
+        // You can use a tooltip library or create a custom tooltip element to display the tooltip content
+      }
+    });
+    
   }
+  
+  
 }

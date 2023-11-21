@@ -20,8 +20,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.css",
-              "node_modules/d3-org-chart/build/css/org-chart.min.css"
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/d3/dist/d3.min.js",
